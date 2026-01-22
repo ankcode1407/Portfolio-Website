@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 interface NoteContent {
   title: string;
   subtitle: string;
-  date: string;
   category: string;
   body: React.ReactNode;
 }
@@ -12,7 +11,6 @@ interface NoteContent {
 const BLACK_BOX_AUDIT_CONTENT: NoteContent = {
   title: 'The "Black Box" Audit: Reconciling High-Dimensional Accuracy with Human-Readable Trust',
   subtitle: 'A Reflection on the Transparency-Performance Gap in "Carbon Guardian 2.0"',
-  date: 'January 2026',
   category: 'AI governance',
   body: (
     <div className="space-y-8 serif text-[#1a1a1a] leading-relaxed">
@@ -53,7 +51,6 @@ const BLACK_BOX_AUDIT_CONTENT: NoteContent = {
 const SCALABILITY_CONSTRAINTS_CONTENT: NoteContent = {
   title: 'Scalability Constraints in ESG Disclosure Verification',
   subtitle: 'Analyzing the "Human vs. Machine" Bottleneck in Corporate Sustainability Auditing',
-  date: 'December 2025',
   category: 'AI governance',
   body: (
     <div className="space-y-8 serif text-[#1a1a1a] leading-relaxed">
@@ -101,11 +98,9 @@ const SCALABILITY_CONSTRAINTS_CONTENT: NoteContent = {
 const METRIC_DESIGN_CONTENT: NoteContent = {
   title: 'Metric Design for Non-Financial Reporting Assessment',
   subtitle: 'The Challenge of Quantifying "Truth" in a Text-Based World',
-  date: 'October 2025',
   category: 'Governance Frameworks',
   body: (
     <div className="space-y-8 serif text-[#1a1a1a] leading-relaxed">
-      {/* Escaped the subscript notation in the following paragraph to prevent JSX from interpreting {score} as a variable */}
       <p>
         {"\"We manage what we measure.\" But how do we measure the credibility of a sentence? In designing the Credibility Score ($C_{score}$) for Carbon Guardian 2.0, I realized that creating a metric for non-financial reporting is fundamentally different from financial auditing. Financial numbers are absolute ($1 is $1). Textual claims are relative and slippery. My research highlights that effective metric design is not just a math problem—it is a game-theory problem involving trade-offs between granularity and gamification."}
       </p>
@@ -130,7 +125,6 @@ const METRIC_DESIGN_CONTENT: NoteContent = {
         <p>
           A major concern in tech policy is Goodhart's Law: "When a measure becomes a target, it ceases to be a good measure." If regulators standardize a specific list of "green keywords," companies will simply optimize their reports to include those words without changing behavior.
         </p>
-        {/* Escaped the subscript notation in the following paragraph to prevent JSX from interpreting {score} as a variable */}
         <p>
           {"In Carbon Guardian, we addressed this by focusing on Syntactic Structures (e.g., Number + Baseline + Year) rather than just vocabulary. However, the risk remains. If our $C_{score}$ becomes a standard, companies might learn to provide \"technically precise\" but \"strategically meaningless\" targets just to get the +1.0 weight."}
         </p>
@@ -159,16 +153,15 @@ const METRIC_DESIGN_CONTENT: NoteContent = {
 const WritingItem: React.FC<{
   title: string;
   subtitle: string;
-  date: string;
   category: string;
   abstract: string;
   onRead: () => void;
-}> = ({ title, subtitle, date, category, abstract, onRead }) => (
+}> = ({ title, subtitle, category, abstract, onRead }) => (
   <div className="py-12 border-b border-gray-100 last:border-0">
     <h2 className="text-2xl font-semibold text-[#1a1a1a] mb-1 tracking-tight leading-tight">{title}</h2>
     <p className="text-sm text-[#888888] mb-2 font-medium">{subtitle}</p>
     <div className="text-[10px] uppercase tracking-[0.2em] text-[#555555] mb-6 font-semibold">
-      Analytical Note · {date} · {category}
+      Analytical Note · {category}
     </div>
     <p className="text-sm text-[#333333] leading-relaxed max-w-2xl mb-6 serif italic opacity-90">
       {abstract}
@@ -203,7 +196,7 @@ const Writing: React.FC = () => {
             {activeNote.subtitle}
           </p>
           <div className="text-[10px] uppercase tracking-[0.2em] text-[#888888] font-semibold border-b border-gray-100 pb-4">
-            {activeNote.category} · {activeNote.date}
+            {activeNote.category}
           </div>
         </header>
 
@@ -212,7 +205,7 @@ const Writing: React.FC = () => {
         </div>
         
         <footer className="pt-12 border-t border-gray-100 text-xs text-[#888888] italic flex flex-col gap-4">
-          <p>Institutional Research Dossier | Ref: {activeNote.date.split(' ').join('-').toUpperCase()}</p>
+          <p>Institutional Research Dossier | Internal Use Only</p>
           <button 
             onClick={() => {
               setActiveNote(null);
@@ -240,7 +233,6 @@ const Writing: React.FC = () => {
         <WritingItem 
           title='The "Black Box" Audit: Reconciling High-Dimensional Accuracy with Human-Readable Trust'
           subtitle='A Reflection on the Transparency-Performance Gap in "Carbon Guardian 2.0"'
-          date="January 2026"
           category="AI governance"
           abstract='Evaluates the regulatory assumption that architectural transparency is a prerequisite for safety. Drawing from Carbon Guardian 2.0, it argues that prioritizing simple architectures can disarm auditors against sophisticated deception.'
           onRead={() => {
@@ -252,7 +244,6 @@ const Writing: React.FC = () => {
         <WritingItem 
           title="Scalability Constraints in ESG Disclosure Verification"
           subtitle='Analyzing the "Human vs. Machine" Bottleneck in Corporate Sustainability Auditing'
-          date="December 2025"
           category="AI governance"
           abstract='Analyzes practical limitations of manual ESG auditing processes and examines whether automated approaches can meaningfully scale regulatory oversight. Discusses hybrid approaches combining human judgment with computational support.'
           onRead={() => {
@@ -264,31 +255,12 @@ const Writing: React.FC = () => {
         <WritingItem 
           title="Metric Design for Non-Financial Reporting Assessment"
           subtitle='The Challenge of Quantifying "Truth" in a Text-Based World'
-          date="October 2025"
           category="Governance Frameworks"
           abstract='Explores methodological considerations in developing quantitative metrics for evaluating disclosure quality. Metric design involves trade-offs between comprehensiveness and usability, facing challenges in weighting diverse claim types.'
           onRead={() => {
             setActiveNote(METRIC_DESIGN_CONTENT);
             window.scrollTo(0, 0);
           }}
-        />
-        
-        <WritingItem 
-          title="Coordination Failures in Encrypted Environments"
-          subtitle="Technical Standards as Policy Revers"
-          date="July 2024"
-          category="Infrastructure"
-          abstract="Exploration of information silos between ISPs and application providers. The note identifies systemic inefficiencies in resource allocation and explores the policy levers available to resolve them through technical standardization."
-          onRead={() => alert('This note is currently being digitized for the dossier.')}
-        />
-        
-        <WritingItem 
-          title="Bureaucratic Resilience in the Age of Automation"
-          subtitle="Preserving Administrative Accountability"
-          date="May 2024"
-          category="Institutional Capacity"
-          abstract="Examining how legacy institutional frameworks can adapt to algorithmic decision-support systems. Focuses on maintaining accountability loops and administrative traceability in high-stakes research environments."
-          onRead={() => alert('This note is currently being digitized for the dossier.')}
         />
       </div>
     </section>
